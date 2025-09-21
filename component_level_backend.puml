@@ -1,0 +1,17 @@
+@startuml ComponentLevelBackend
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container(api, "Backend API") {
+    Component(authController, "Auth Controller", "Node.js", "Handles login, registration, and JWT tokens")
+    Component(bookingController, "Booking Controller", "Node.js", "Handles CRUD for bookings")
+    Component(notificationController, "Notification Controller", "Node.js", "Sends notifications via Notification Service")
+    Component(paymentController, "Payment Controller", "Node.js", "Handles payment integration with Payment Gateway")
+    Component(dbAccess, "Database Access Layer", "Node.js", "Interacts with PostgreSQL")
+}
+
+Rel(authController, db, "Reads/Writes user data")
+Rel(bookingController, db, "Reads/Writes booking data")
+Rel(notificationController, notificationService, "Sends push notifications")
+Rel(paymentController, paymentGateway, "Processes payments")
+
+@enduml

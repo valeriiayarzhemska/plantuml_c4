@@ -1,0 +1,18 @@
+@startuml SystemContext
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(user, "End User", "Uses the booking mobile app to browse and book trips")
+Person(admin, "Admin", "Manages content and bookings")
+
+System(mobileApp, "Booking Mobile App", "React Native mobile app for end users")
+System_Ext(backend, "Backend API", "Node.js + Express API for business logic")
+System_Ext(onesignal, "OneSignal", "Push notification service")
+System_Ext(paymentGateway, "Payment Gateway", "External payment processing service")
+
+Rel(user, mobileApp, "Uses")
+Rel(admin, mobileApp, "Uses for admin tasks")
+Rel(mobileApp, backend, "Sends API requests")
+Rel(mobileApp, onesignal, "Receives push notifications")
+Rel(mobileApp, paymentGateway, "Processes payments via API")
+
+@enduml

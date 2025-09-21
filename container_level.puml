@@ -1,0 +1,21 @@
+@startuml ContainerLevel
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "End User")
+Person(admin, "Admin")
+
+System_Boundary(bookingApp, "Booking App") {
+    Container(frontend, "React Native App", "Mobile App", "Allows users to browse and book trips")
+    Container(api, "Backend API", "Node.js + Express", "Handles business logic and database access")
+    Container(db, "PostgreSQL Database", "PostgreSQL", "Stores user, booking, and admin data")
+    Container(notificationService, "Notification Service", "Node.js", "Integrates with OneSignal to send push notifications")
+}
+
+Rel(user, frontend, "Uses mobile app")
+Rel(admin, frontend, "Uses for admin tasks")
+Rel(frontend, api, "Sends HTTP requests")
+Rel(api, db, "Reads/Writes data")
+Rel(frontend, notificationService, "Sends push notifications")
+Rel(notificationService, onesignal, "Push notifications via API")
+
+@enduml

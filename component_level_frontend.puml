@@ -1,0 +1,17 @@
+@startuml ComponentLevelFrontend
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container(frontend, "React Native App") {
+    Component(authScreen, "Auth Screen", "React Native", "Handles login and registration")
+    Component(homeScreen, "Home Screen", "React Native", "Displays available trips")
+    Component(bookingScreen, "Booking Screen", "React Native", "Handles trip booking")
+    Component(notificationHandler, "Notification Handler", "React Native", "Receives and handles push notifications")
+    Component(apiService, "API Service", "React Native", "Manages API calls to Backend API")
+}
+
+Rel(authScreen, apiService, "Sends auth requests")
+Rel(homeScreen, apiService, "Fetches trips data")
+Rel(bookingScreen, apiService, "Sends booking requests")
+Rel(notificationHandler, onesignal, "Receives push notifications")
+
+@enduml
